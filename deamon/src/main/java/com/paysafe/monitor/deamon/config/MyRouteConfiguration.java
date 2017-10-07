@@ -29,6 +29,8 @@ public class MyRouteConfiguration extends CamelConfiguration {
 		return new MyRouteBuilder();
 	}
 	
+	
+	
 	@Bean
 	public Processor gameProcessor() {
 		return new Processor() {
