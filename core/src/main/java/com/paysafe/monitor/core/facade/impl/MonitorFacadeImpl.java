@@ -16,15 +16,10 @@ public class MonitorFacadeImpl implements MonitorFacade {
 	
 	@Override
 	public void fire() {
-		intervalManagerService.updateLastExecution(new Date());
-		System.out.println("fired");
-		
+		System.out.println("can fire");
+		if (intervalManagerService.isTimeExpired()) {
+			intervalManagerService.updateLastExecution(new Date());
+			System.out.println("fired");
+		} 
 	}
-
-	@Override
-	public boolean canFire() {
-		System.out.println("can fire?");
-		return intervalManagerService.isTimeExpired();
-	}
-
 }
