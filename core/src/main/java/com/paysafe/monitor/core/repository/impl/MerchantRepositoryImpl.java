@@ -67,15 +67,18 @@ public class MerchantRepositoryImpl implements MerchantRepository {
 	@Override
 	public ServerStatusReport verify() {
 		
-		HttpResponse<EndpointStatus> getRequest;
 		try {
-			getRequest = Unirest.get("http://" + hostname + "/" + RESOURCE).asObject(EndpointStatus.class);
-			
+			String url = "http://" + hostname + RESOURCE;
+			HttpResponse<EndpointStatus> getRequest = get(url, EndpointStatus.class);
 			return new ServerStatusReport(isAvailable(getRequest), new Date());
 		} catch (UnirestException e) {
 			LOG.error("error verifying endpoint status", e);
 			return new ServerStatusReport(false, new Date());
 		}
+	}
+
+	protected HttpResponse<EndpointStatus> get(String url, Class<EndpointStatus> responseType) throws UnirestException {
+		return Unirest.get(url).asObject(responseType);
 	}
 
 	private boolean isAvailable(HttpResponse<EndpointStatus> getRequest) {

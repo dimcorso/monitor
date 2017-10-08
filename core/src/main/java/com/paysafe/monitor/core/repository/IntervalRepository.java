@@ -4,6 +4,6 @@ public interface IntervalRepository {
 
 	Integer retrieveInterval();
 
-	void updateInterval(Integer interval);
+	void updateInterval(int interval);
 
 }

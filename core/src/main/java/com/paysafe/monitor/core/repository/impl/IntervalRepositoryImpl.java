@@ -26,7 +26,7 @@ public class IntervalRepositoryImpl implements IntervalRepository {
 	}
 
 	@Override
-	public void updateInterval(Integer interval) {
+	public void updateInterval(int interval) {
 		this.interval = interval;
 	}
 
