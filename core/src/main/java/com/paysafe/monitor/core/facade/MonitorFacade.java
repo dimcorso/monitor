@@ -4,7 +4,7 @@ import com.paysafe.monitor.core.model.Config;
 
 public interface MonitorFacade {
 
-	void fire();
+	void tick();
 	
 	void configure(Config config);
 }

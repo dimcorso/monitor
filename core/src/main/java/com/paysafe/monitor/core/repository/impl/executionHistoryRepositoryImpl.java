@@ -1,37 +1,47 @@
 package com.paysafe.monitor.core.repository.impl;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.paysafe.monitor.core.model.ServerStatusReport;
 import com.paysafe.monitor.core.repository.ExecutionHistoryRepository;
 
 @Repository
-public class executionHistoryRepositoryImpl implements ExecutionHistoryRepository {
+public class ExecutionHistoryRepositoryImpl implements ExecutionHistoryRepository {
 
-	private Date lastExcecution;
+	private static final Logger LOG = LoggerFactory.getLogger(ExecutionHistoryRepositoryImpl.class);
 	
-	public executionHistoryRepositoryImpl() {
+	private List<ServerStatusReport> history;
+	
+	public ExecutionHistoryRepositoryImpl() {
 		super();
 		init();
 	}
 	
 	@PostConstruct
 	private void init() {
-		lastExcecution = new Date();
+		history = Collections.synchronizedList(new LinkedList<>());
 	}
 	
 	@Override
-	public Date getLastExcecution() {
-		return lastExcecution;
+	public Optional<Date> getLastExcecution() {
+		return history.isEmpty()? Optional.empty() : Optional.of(history.get(history.size() - 1).getDate());
 	}
 
 	@Override
-	public synchronized void updateLastExecution(Date date) {
+	public void updateLastExecution(ServerStatusReport report) {
+		LOG.info("Status: " + report.isAvailable());
+		history.add(report);
 		
-		lastExcecution = date;
 	}
 
 }

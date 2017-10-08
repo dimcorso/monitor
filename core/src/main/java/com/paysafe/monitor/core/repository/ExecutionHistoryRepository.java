@@ -1,11 +1,14 @@
 package com.paysafe.monitor.core.repository;
 
 import java.util.Date;
+import java.util.Optional;
+
+import com.paysafe.monitor.core.model.ServerStatusReport;
 
 public interface ExecutionHistoryRepository {
 
-	Date getLastExcecution();
+	Optional<Date> getLastExcecution();
 
-	void updateLastExecution(Date date);
+	void updateLastExecution(ServerStatusReport report);
 
 }
