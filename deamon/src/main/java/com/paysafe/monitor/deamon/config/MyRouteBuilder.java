@@ -10,7 +10,7 @@ public class MyRouteBuilder extends RouteBuilder {
 	
 	@Override
 	public void configure() throws Exception {
-		from("scheduler://monitor?delay=5000")
+		from("scheduler://monitor?delay=1000")
 			.to("bean:monitorFacade?method=fire")
 		.end();
 		
@@ -21,8 +21,6 @@ public class MyRouteBuilder extends RouteBuilder {
 			.bindingMode(RestBindingMode.json);
 		
 		rest("/monitor")
-			.get("state")
-				.to("bean:monitorFacade?method=configure")
 			.post("config").type(Config.class)
 				.to("bean:monitorFacade?method=configure");
 

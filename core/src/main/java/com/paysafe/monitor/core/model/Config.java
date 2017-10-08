@@ -6,7 +6,7 @@ public class Config {
 	
 	private String hostname;
 	
-	private Boolean started;
+	private String state;
 
 	public Integer getInterval() {
 		return interval;
@@ -24,11 +24,11 @@ public class Config {
 		this.hostname = hostname;
 	}
 
-	public Boolean getStarted() {
-		return started;
+	public String getState() {
+		return state;
 	}
 
-	public void setStarted(Boolean started) {
-		this.started = started;
+	public void setState(String state) {
+		this.state = state;
 	}
 }
