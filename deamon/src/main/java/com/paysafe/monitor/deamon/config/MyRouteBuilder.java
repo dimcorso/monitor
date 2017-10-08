@@ -22,7 +22,10 @@ public class MyRouteBuilder extends RouteBuilder {
 		
 		rest("/monitor")
 			.post("config").type(Config.class)
-				.to("bean:monitorFacade?method=configure");
+				.to("bean:monitorFacade?method=configure")
+				
+			.get("summary")
+				.to("bean:monitorFacade?method=buildReport");
 
 	}
 

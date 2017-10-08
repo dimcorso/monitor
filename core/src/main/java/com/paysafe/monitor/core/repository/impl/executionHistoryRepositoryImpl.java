@@ -41,7 +41,11 @@ public class ExecutionHistoryRepositoryImpl implements ExecutionHistoryRepositor
 	public void updateLastExecution(ServerStatusReport report) {
 		LOG.info("Status: " + report.isAvailable());
 		history.add(report);
-		
+	}
+	
+	@Override
+	public List<ServerStatusReport> getHistory() {
+		return history;
 	}
 
 }

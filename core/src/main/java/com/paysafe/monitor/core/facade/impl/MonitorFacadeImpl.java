@@ -1,5 +1,7 @@
 package com.paysafe.monitor.core.facade.impl;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.paysafe.monitor.core.facade.MonitorFacade;
 import com.paysafe.monitor.core.model.Config;
+import com.paysafe.monitor.core.model.ServerStatusSummary;
 import com.paysafe.monitor.core.service.EndpointStatusService;
 import com.paysafe.monitor.core.service.IntervalManagementService;
 import com.paysafe.monitor.core.service.MonitorStateService;
@@ -39,5 +42,11 @@ public class MonitorFacadeImpl implements MonitorFacade {
 		monitorStateService.configure(config.getState());
 		endpointStatusService.configure(config.getHostname());
 		LOG.info("Configuration updated");
+	}
+	
+	
+	@Override
+	public List<ServerStatusSummary> buildReport() {
+		return endpointStatusService.buildReport();
 	}
 }
