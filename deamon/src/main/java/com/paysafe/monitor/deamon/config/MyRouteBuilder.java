@@ -1,5 +1,7 @@
 package com.paysafe.monitor.deamon.config;
 
+import java.util.List;
+
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;
 
@@ -16,15 +18,19 @@ public class MyRouteBuilder extends RouteBuilder {
 		
 		restConfiguration()
 			.component("restlet")
-			.port("8090")
-			.contextPath("api")
-			.bindingMode(RestBindingMode.json);
+			.dataFormatProperty("prettyPrint", "true")
+			.contextPath("api").port("8090")
+			.bindingMode(RestBindingMode.json)
+			.apiContextPath("/api-doc")
+	            .apiProperty("api.title", "Paysafe Monitor API").apiProperty("api.version", "1.0.0")
+	            .apiProperty("cors", "true")
+	            ;
 		
 		rest("/monitor")
-			.post("config").type(Config.class)
+			.put("config").description("Configuration update endpoint").type(Config.class).outType(Config.class)
 				.to("bean:monitorFacade?method=configure")
 				
-			.get("summary")
+			.get("summary").description("Sever status summary endpoint")
 				.to("bean:monitorFacade?method=buildReport");
 
 	}

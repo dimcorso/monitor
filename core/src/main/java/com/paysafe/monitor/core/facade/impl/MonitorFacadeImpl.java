@@ -38,9 +38,18 @@ public class MonitorFacadeImpl implements MonitorFacade {
 
 	@Override
 	public void configure(Config config) {
-		intervalManagerService.configure(config.getInterval());
-		monitorStateService.configure(config.getState());
-		endpointStatusService.configure(config.getHostname());
+		if (config.getInterval() != null) {
+			intervalManagerService.configure(config.getInterval());
+		}
+		
+		if (config.getState() != null) {
+			monitorStateService.configure(config.getState());
+		}
+		
+		if (config.getHostname() != null) {
+			endpointStatusService.configure(config.getHostname());
+		}
+		
 		LOG.info("Configuration updated");
 	}
 	

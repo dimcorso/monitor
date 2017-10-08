@@ -4,9 +4,8 @@ public class EndpointStatus {
 
 	private String status;
 
-	public EndpointStatus(String status) {
+	public EndpointStatus() {
 		super();
-		this.status = status;
 	}
 	
 	public String getStatus() {

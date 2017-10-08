@@ -25,7 +25,7 @@ public class MonitorStateServiceImpl implements MonitorStateService {
 	}
 
 	@Override
-	public synchronized void configure(String state) {
+	public void configure(String state) {
 		if (stateMap.containsKey(state)) {
 			monitorState = stateMap.get(state).get();
 		} else {

@@ -34,25 +34,17 @@ public class MerchantRepositoryImplTest {
 
 	@Test
 	public void testVerifyWhenNoErrorAndAvailable() throws Exception {
-		repo.updateHostName("local");
-		String url = "http://local/accountmanagement/monitor";
-		HttpResponse<EndpointStatus> response = mock(HttpResponse.class);
-		doReturn(new EndpointStatus("READY")).when(response).getBody();
-		doReturn(response).when(repo).get(url, EndpointStatus.class);
+		mockHttpResponse("READY");
 		
 		ServerStatusReport status = repo.verify();
 		
 		assertTrue(status.isAvailable());
 		assertNotNull(status.getDate());
 	}
-	
+
 	@Test
 	public void testVerifyWhenNoErrorAndNotAvailable() throws Exception {
-		repo.updateHostName("local");
-		String url = "http://local/accountmanagement/monitor";
-		HttpResponse<EndpointStatus> response = mock(HttpResponse.class);
-		doReturn(new EndpointStatus("NOT READY")).when(response).getBody();
-		doReturn(response).when(repo).get(url, EndpointStatus.class);
+		mockHttpResponse("NOT READY");
 		
 		ServerStatusReport status = repo.verify();
 		
@@ -71,5 +63,14 @@ public class MerchantRepositoryImplTest {
 		assertFalse(status.isAvailable());
 		assertNotNull(status.getDate());
 	}
-
+	
+	private void mockHttpResponse(String statusValue) throws UnirestException {
+		repo.updateHostName("local");
+		String url = "http://local/accountmanagement/monitor";
+		HttpResponse<EndpointStatus> response = mock(HttpResponse.class);
+		EndpointStatus endpointStatus = new EndpointStatus();
+		endpointStatus.setStatus(statusValue);
+		doReturn(endpointStatus).when(response).getBody();
+		doReturn(response).when(repo).get(url, EndpointStatus.class);
+	}
 }

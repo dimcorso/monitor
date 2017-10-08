@@ -1,9 +1,7 @@
 package com.paysafe.monitor.core.service.impl;
 
-public class MonitorState {
+public abstract class MonitorState {
 
-	public boolean isStarted() {
-		return false;
-	}
+	public abstract boolean isStarted();
 
 }

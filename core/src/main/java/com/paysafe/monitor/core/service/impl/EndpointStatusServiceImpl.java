@@ -38,7 +38,7 @@ public class EndpointStatusServiceImpl implements com.paysafe.monitor.core.servi
 	}
 	
 	@Override
-	public LinkedList<ServerStatusSummary> buildReport() {
+	public List<ServerStatusSummary> buildReport() {
 		List<ServerStatusReport> history = executionHistoryRepository.getHistory();
 		LinkedList<ServerStatusSummary> intervals = new LinkedList<>();
 		history
